@@ -37,9 +37,9 @@ public class Main {
         Names names = new Names();
 
         // Create the teams
-        Team giants = new Team("New York", "Giants", names);
-        Team cowboys = new Team("Dallas", "Cowboys", names);
-        Team redskins = new Team("Washington", "Redskins", names);
+        Team giants = new Team("New York", "Big Guys", names);
+        Team cowboys = new Team("Dallas", "Cowgirls", names);
+        Team redskins = new Team("Washington", "Native Americans", names);
 
         // Add the teams to the team list
         ArrayList<Team> teams = new ArrayList<>();
@@ -73,7 +73,7 @@ public class Main {
 
         // Create the Free Agents pool and the league
         FreeAgencyPool freeAgencyPool = new FreeAgencyPool(teams.size());
-        League nfl = new League(teams, 14000000, "National Football League", user_team, freeAgencyPool);
+        League nfl = new League(teams, 14000000, "National Racing League", user_team, freeAgencyPool);
 
         // Give each team the free agency pool
         for(Team team : teams){

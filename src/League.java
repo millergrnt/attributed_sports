@@ -225,7 +225,7 @@ public class League {
 
             // Get the top team as the champion
             Team champion = this.teams.get(0);
-            System.out.println(String.format("%s %s won the Lombardi Trophy!",
+            System.out.println(String.format("%s %s won the Championship Trophy!",
                     champion.getTeam_location(), champion.getTeam_name()));
             champion.setChampionships(champion.getChampionships() + 1);
 
