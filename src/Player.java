@@ -1,6 +1,12 @@
 import java.util.Random;
 
 /**
+ * Enum to give players a potential that will change how quickly
+ * they grow
+ */
+enum Potential { LOW, MEDIUM, HIGH }
+
+/**
  * Emulates players within the program
  */
 public class Player extends Thread {
@@ -15,6 +21,7 @@ public class Player extends Thread {
     private String name;
     private Contract contract;
     private boolean inLineUp;
+    private Potential potential;
 
     /**
      * Player constructor. Randomly generates acceleration
@@ -50,6 +57,14 @@ public class Player extends Thread {
 
         this.contract = new Contract(salary, length);
         this.games_sat = 0;
+
+        int potentialInt = this.random.nextInt(3);
+        if(potentialInt == 0)
+            this.potential = Potential.LOW;
+        else if(potentialInt == 1)
+            this.potential = Potential.MEDIUM;
+        else
+            this.potential = Potential.HIGH;
     }
 
 
@@ -150,7 +165,19 @@ public class Player extends Thread {
         if(this.speed == 20)
             return;
 
-        this.speed += random.nextInt(2);
+        // Based on their potential this player will grow
+        // faster or slower. however if they are too old
+        // potential no longer helps them
+        if(this.age < 29) {
+            if (this.potential == Potential.LOW)
+                this.speed += random.nextInt(2);
+            else if (this.potential == Potential.MEDIUM)
+                this.speed += random.nextInt(3);
+            else
+                this.speed += random.nextInt(4);
+        } else {
+            this.speed += random.nextInt(2);
+        }
 
         while(this.speed > 20)
             this.speed--;
@@ -165,7 +192,19 @@ public class Player extends Thread {
         if(this.acceleration == 20)
             return;
 
-        this.acceleration += random.nextInt(2);
+        // Based on their potential this player will grow
+        // faster or slower. however if they are too old
+        // potential no longer helps them
+        if(this.age < 29) {
+            if (this.potential == Potential.LOW)
+                this.acceleration += random.nextInt(2);
+            else if (this.potential == Potential.MEDIUM)
+                this.acceleration += random.nextInt(3);
+            else
+                this.acceleration += random.nextInt(4);
+        } else {
+            this.acceleration += random.nextInt(2);
+        }
 
         while(this.acceleration > 20)
             this.acceleration--;
@@ -251,8 +290,9 @@ public class Player extends Thread {
             racer_str += "*Name: " + this.name;
 
         racer_str += "\t\tSpeed: " + this.speed;
-        racer_str += "\tAcceleration: " + this.acceleration;
+        racer_str += "\tAcc: " + this.acceleration;
         racer_str += "\tAge: " + this.age;
+        racer_str += "\tPot: " + this.potential.toString();
         racer_str += "\tSalary: " + getSalaryString();
 
         return racer_str;
@@ -267,8 +307,9 @@ public class Player extends Thread {
         String racer_str = "Name: " + this.name;
 
         racer_str += "\t\tSpeed: X";
-        racer_str += "\tAcceleration: X";
+        racer_str += "\tAcc: X";
         racer_str += "\tAge: " + this.age;
+        racer_str += "\tPot: " + this.potential.toString();
         racer_str += "\tSalary: " + getSalaryString();
 
         return racer_str;
@@ -325,10 +366,10 @@ public class Player extends Thread {
     }
 
 
-    @Override
     /**
      * Runs the race for this thread
      */
+    @Override
     public void run() {
         int i = 1;
         this.last_race = 0;

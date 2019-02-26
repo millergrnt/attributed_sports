@@ -50,8 +50,8 @@ public class Game extends Thread{
                     Player away_player = this.away_team.getLineup().get(i);
 
                     // Run the race
-                    home_player.run();
-                    away_player.run();
+                    home_player.start();
+                    away_player.start();
 
                     try {
                         home_player.join();
@@ -129,8 +129,8 @@ public class Game extends Thread{
                 Player away_player = this.away_team.getLineup().get(i);
 
                 // Run the race
-                home_player.run();
-                away_player.run();
+                home_player.start();
+                away_player.start();
 
                 try {
                     home_player.join();

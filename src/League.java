@@ -183,7 +183,7 @@ public class League {
 
                 // Start each game
                 for(Game game : week){
-                    game.run();
+                    game.start();
                 }
 
                 // Join the games to wait for them all to finish
