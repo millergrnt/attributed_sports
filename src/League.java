@@ -233,7 +233,7 @@ public class League {
             // run offseason
             for(Team team : this.teams){
 
-                team.run();
+                team.start();
             }
 
             // Join threads to wait
