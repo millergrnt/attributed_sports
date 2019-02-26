@@ -50,15 +50,26 @@ public class Game extends Thread{
                     Player away_player = this.away_team.getLineup().get(i);
 
                     // Run the race
-                    home_player.start();
-                    away_player.start();
+                    // Create the necessary player threads
+                    PlayerThread home = home_player.getPlayerThread();
+                    PlayerThread away = away_player.getPlayerThread();
+
+                    // start the threads
+                    home.start();
+                    away.start();
 
                     try {
-                        home_player.join();
-                        away_player.join();
+
+                        // join the threads
+                        home.join();
+                        away.join();
                     } catch (InterruptedException e) {
                         // shouldn't happen
                     }
+
+                    // Save the result of the race
+                    home_player.setLast_race(home.getLast_race());
+                    away_player.setLast_race(away.getLast_race());
 
                     if (home_player.getLast_race() > away_player.getLast_race()) {
 
@@ -129,15 +140,26 @@ public class Game extends Thread{
                 Player away_player = this.away_team.getLineup().get(i);
 
                 // Run the race
-                home_player.start();
-                away_player.start();
+                // Create the necessary player threads
+                PlayerThread home = home_player.getPlayerThread();
+                PlayerThread away = away_player.getPlayerThread();
+
+                // start the threads
+                home.start();
+                away.start();
 
                 try {
-                    home_player.join();
-                    away_player.join();
+
+                    // join the threads
+                    home.join();
+                    away.join();
                 } catch (InterruptedException e) {
                     // shouldn't happen
                 }
+
+                // Save the result of the race
+                home_player.setLast_race(home.getLast_race());
+                away_player.setLast_race(away.getLast_race());
 
                 if (home_player.getLast_race() > away_player.getLast_race()) {
 

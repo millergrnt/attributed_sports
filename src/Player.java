@@ -9,7 +9,7 @@ enum Potential { LOW, MEDIUM, HIGH }
 /**
  * Emulates players within the program
  */
-public class Player extends Thread {
+public class Player {
 
     private Integer speed;
     private Integer acceleration;
@@ -367,39 +367,17 @@ public class Player extends Thread {
 
 
     /**
-     * Runs the race for this thread
+     * Sets the last race results of this player
+     * @param last_race Last race player
      */
-    @Override
-    public void run() {
-        int i = 1;
-        this.last_race = 0;
-        while(i <= 5) {
+    public void setLast_race(int last_race) { this.last_race = last_race; }
 
-            if(i == 1) {
 
-                // First leg is all acceleration
-                // minimum is 2 if 20 acceleration
-                // minimum is 1 if 10> acceleration
-                // minimum is 0 otherwise
-                this.last_race += this.random.nextInt(this.acceleration) + (this.acceleration / 10);
-            } else if (i == 2) {
-
-                this.last_race += (this.random.nextInt(this.acceleration) + (this.acceleration / 10)) / 2 ;
-                this.last_race += (this.random.nextInt(this.speed) + (this.speed / 10)) / 2;
-            } else {
-
-                // Legs 3,4,5 are all speed based
-                this.last_race += this.random.nextInt(this.speed) + (this.speed / 10);
-            }
-
-            // Sleep one 50th of a second
-            try {
-                sleep(50);
-            } catch (InterruptedException e) {
-                // shouldn't happen
-            }
-
-            i++;
-        }
+    /**
+     * Creates a new player thread to run the race
+     * @return the new player thread object
+     */
+    public PlayerThread getPlayerThread() {
+        return new PlayerThread(this.acceleration, this.speed, this.random);
     }
 }
