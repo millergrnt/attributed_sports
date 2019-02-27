@@ -37,10 +37,6 @@ public class TeamOffseasonThread extends Thread {
                 Player player = this.team.getRoster().get(i);
                 player.get_older();
 
-                // Set this player's previous speed and acceleration
-                player.setPrevAcceleration();
-                player.setPrevSpeed();
-
                 // if they sat enough games grow young players, regress older players
                 if(player.getGamesSat() > (this.team.getSchedule().size() / 2)) {
 
@@ -97,6 +93,10 @@ public class TeamOffseasonThread extends Thread {
                             // Otherwise negotiate their new contract
                             player.negotiateContract();
                             System.out.println(String.format("[!] Resigned for %s\n", player.getSalaryString()));
+
+                            // Set this player's previous speed and acceleration
+                            player.setPrevAcceleration();
+                            player.setPrevSpeed();
                         }
                     }
 
