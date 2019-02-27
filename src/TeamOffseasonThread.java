@@ -166,6 +166,10 @@ public class TeamOffseasonThread extends Thread {
                         }
                     }
 
+                    // Set this player's previous speed and acceleration
+                    player.setPrevAcceleration();
+                    player.setPrevSpeed();
+
                     // Add this player's contract to cap hit
                     this.team.setCap_hit(this.team.getCap_hit() + player.getSalary());
                 }
