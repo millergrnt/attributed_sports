@@ -494,7 +494,7 @@ public class Team extends Thread{
      * Gets the offseason thread for this team
      * @return thread running the offseason for this team
      */
-    public TeamOffseasonThread getThread() { return this.getThread(); }
+    public TeamOffseasonThread getThread() { return this.thread; }
 
 
     /**

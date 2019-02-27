@@ -12,7 +12,9 @@ enum Potential { LOW, MEDIUM, HIGH }
 public class Player {
 
     private Integer speed;
+    private Integer prevSpeed;
     private Integer acceleration;
+    private Integer prevAcceleration;
     private Integer age;
     private Integer last_race;
     private Integer overall;
@@ -37,6 +39,8 @@ public class Player {
         // Create the speed, acceleration, and age of this racer
         this.speed = random.nextInt(9) + 1;
         this.acceleration = random.nextInt(9) + 1;
+        this.prevSpeed = speed;
+        this.prevAcceleration = acceleration;
 
         if(rookie)
             this.age = random.nextInt(4) + 16;
@@ -155,6 +159,20 @@ public class Player {
     public Integer getAge() {
         return this.age;
     }
+
+
+    /**
+     * Sets the previous speed of this player to their offseason
+     * speed so that the user can see the growth over the course of the season
+     */
+    public void setPrevSpeed() { this.prevSpeed = this.speed; }
+
+
+    /**
+     * Sets the previous acceleration of this player to their offseason
+     * acceleration so that the user can see the growth over the course of the season
+     */
+    public void setPrevAcceleration() { this.prevAcceleration = this.acceleration; }
 
 
     /**
@@ -290,7 +308,29 @@ public class Player {
             racer_str += "*Name: " + this.name;
 
         racer_str += "\t\tSpeed: " + this.speed;
+
+        // Show user recent additions and subtractions from this player's stats
+        // from the beginning of the season
+        int speedDiff = this.speed - this.prevSpeed;
+        if(speedDiff > 0)
+            racer_str += "(+" + speedDiff + ")";
+        else if(speedDiff < 0)
+            racer_str += "(-" + speedDiff + ")";
+        else
+            racer_str += "(" + speedDiff + ")";
+
         racer_str += "\tAcc: " + this.acceleration;
+
+        // Show user recent additions and subtractions from this player's stats
+        // from the beginning of the season
+        int accDiff = this.acceleration - this.prevAcceleration;
+        if(accDiff > 0)
+            racer_str += "(+" + accDiff + ")";
+        else if(speedDiff < 0)
+            racer_str += "(-" + accDiff + ")";
+        else
+            racer_str += "(" + accDiff + ")";
+
         racer_str += "\tAge: " + this.age;
         racer_str += "\tPot: " + this.potential.toString();
         racer_str += "\tSalary: " + getSalaryString();
