@@ -233,14 +233,14 @@ public class League {
             // run offseason
             for(Team team : this.teams){
 
-                team.start();
+                team.runOffseason();
             }
 
             // Join threads to wait
             for(Team team : this.teams){
 
                 try {
-                    team.join();
+                    team.getThread().join();
                 } catch (InterruptedException e) {
                     // Shouldn't happen
                 }
